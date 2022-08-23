@@ -1,5 +1,6 @@
 package imoussoura.birthdayapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,11 @@ public class Birthday {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @JsonIgnore
+    public User getUser() {
+        return user;
+    }
 
     @Override
     public String toString() {

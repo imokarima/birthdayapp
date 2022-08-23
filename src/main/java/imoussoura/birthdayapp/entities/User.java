@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Table(name = "birthday_user")
@@ -31,7 +33,7 @@ public class User {
     private String email;
 
     @OneToMany( targetEntity=Birthday.class, mappedBy="user" )
-    private Set<Birthday> birthdayliste = new HashSet<>();
+    private List<Birthday> birthdayliste = new ArrayList<>();
 
     @Override
     public String toString() {
