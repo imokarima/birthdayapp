@@ -32,8 +32,8 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany( targetEntity=Birthday.class, mappedBy="user" )
-    private List<Birthday> birthdayliste = new ArrayList<>();
+    @OneToMany( targetEntity=Birthday.class, mappedBy="user", fetch=FetchType.EAGER )
+    private List<Birthday> birthdayliste;
 
     @Override
     public String toString() {

@@ -6,9 +6,13 @@ import imoussoura.birthdayapp.entities.Birthday;
 import imoussoura.birthdayapp.entities.User;
 import imoussoura.birthdayapp.repositories.BirthdayRepository;
 import imoussoura.birthdayapp.repositories.UserRepository;
+import imoussoura.birthdayapp.security.MyUserPrincipal;
 import imoussoura.birthdayapp.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
@@ -18,7 +22,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl  implements UserService {
+public class UserServiceImpl  implements UserService , UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -88,4 +92,19 @@ public class UserServiceImpl  implements UserService {
         }
         return null;
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+
+        System.out.println("-----------> " + optionalUser);
+
+        if (!optionalUser.isPresent()) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new MyUserPrincipal(optionalUser.get());
+
+    }
+
 }

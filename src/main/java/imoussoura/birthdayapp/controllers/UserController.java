@@ -37,8 +37,8 @@ public class UserController {
     }
 }
 
-
-@PostMapping(value="/userlogin")
+/*
+@PostMapping(value="/login")
     public ResponseEntity<User> getUser(@RequestBody UserLoginDto userLoginDto){
     try{
         User user=userService.login(userLoginDto);
@@ -46,7 +46,7 @@ public class UserController {
     }catch (Exception e){
         return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-}
+}*/
 
     @GetMapping(value = "/{id}")
     public User getUserById(@PathVariable Long id){
